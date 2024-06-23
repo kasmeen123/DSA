@@ -56,5 +56,25 @@ class Solution {
             }
         }
         return ans;
+        
+        //  for (int i = 0; i < n; i++) {
+        //     arr[arr[i] % k] += k;
+        // }
+
+        // // Step 2: Find the element with the maximum frequency
+        // int max = arr[0], result = 0;
+        // for (int i = 1; i < k; i++) {
+        //     if (arr[i] > max) {
+        //         max = arr[i];
+        //         result = i;
+        //     }
+        // }
+
+        // // Return the original array to its original form
+        // for (int i = 0; i < n; i++) {
+        //     arr[i] = arr[i] % k;
+        // }
+
+        // return result;
     }
 }
