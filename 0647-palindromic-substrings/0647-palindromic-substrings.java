@@ -25,34 +25,26 @@ class Solution {
 //         }
 //         return true;
         
-         int cnt = 0;
-    int n = s.length();
-    for (int i = 0; i < n; i++) {
-        // FOR ODD LENGTH PALINDROME
-        int l = i;
-        int r = i;
-        while (l >= 0 && r < n) {
-            if (s.charAt(l) == s.charAt(r)) {
-                cnt++;
-                l--;
-                r++;
-            } else {
-                break; // Added break to exit the loop when characters don't match
-            }
+        int n = s.length();
+        int cnt  = 0;
+        
+        for(int i = 0; i < n; i++){
+        //FOR ODD LENGTH PALINDROME
+        cnt += cntPalindrome(s, i, i);
+        
+        //FOR EVEN LENGTH PALINDROME
+        cnt += cntPalindrome(s, i, i+1);
         }
-        // FOR EVEN LENGTH PALINDROME
-        l = i;
-        r = i + 1;
-        while (l >= 0 && r < n) {
-            if (s.charAt(l) == s.charAt(r)) {
-                cnt++;
-                l--;
-                r++;
-            } else {
-                break; // Added break to exit the loop when characters don't match
-            }
-        }
+        return cnt;
     }
-    return cnt;
+    public int cntPalindrome(String s, int l, int r){
+        int count = 0;
+        while(l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)){
+            count++;
+            l--;
+            r++;
+        
+        }
+        return count;
     }
 }
