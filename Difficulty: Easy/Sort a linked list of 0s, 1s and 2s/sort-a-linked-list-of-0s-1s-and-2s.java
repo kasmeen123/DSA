@@ -80,22 +80,36 @@ class Solution {
             curr = curr.next;
         }
          curr = head;
-        while (cnt0 > 0) {
-            curr.data = 0;
+        // while (cnt0 > 0) {
+        //     curr.data = 0;
+        //     curr = curr.next;
+        //     cnt0--;
+        // }
+        // while (cnt1 > 0) {
+        //     curr.data = 1;
+        //     curr = curr.next;
+        //     cnt1--;
+        // }
+        // while (cnt2 > 0) {
+        //     curr.data = 2;
+        //     curr = curr.next;
+        //     cnt2--;
+        // }
+        while (curr != null){
+            if(cnt0 > 0) {
+                curr.data = 0;
+                cnt0--;
+            }
+            else if(cnt1 > 0) {
+                curr.data = 1;
+                cnt1--;
+            }
+            else {
+                curr.data = 2;
+                cnt2--;
+            }
             curr = curr.next;
-            cnt0--;
         }
-        while (cnt1 > 0) {
-            curr.data = 1;
-            curr = curr.next;
-            cnt1--;
-        }
-        while (cnt2 > 0) {
-            curr.data = 2;
-            curr = curr.next;
-            cnt2--;
-        }
-
         return head;
     }
 }
