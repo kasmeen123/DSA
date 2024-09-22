@@ -12,35 +12,7 @@ class Solution {
     //        return Arrays.equals(arr1, arr2);
     //    }
 
-    // HashMap<Character, Integer> map1 = new HashMap<>();
-    // HashMap<Character, Integer> map2 = new HashMap<>();
-    // if(s.length() != t.length()) return false;
-    // for(int i = 0; i < s.length(); i++){
-    //     if(map.containsKey(s.charAt(i))){
-            
-    //     }
-    // }
-    // for(int i = 0; i < t.length(); i++){
-    //     set2.add(t.charAt(i));
-    // }
-    // if(set1.equals(set2)) return true;
-    // else return false;
-
-    //  if (s.length() != t.length()) {
-    //         return false;
-    //     }
-    // int [] cnt = new int [26];
-    // for(int i = 0; i < s.length(); i++){
-    //     cnt[s.charAt(i) - 'a']++;
-    //     cnt[t.charAt(i) - 'a']--;
-    // }
-    // for(int i = 0; i < 26; i++){
-    //     if(cnt[i] != 0){
-    //     return false; 
-    //     } 
-    // }
-    // return true;
-
+  
      if (s.length() != t.length()) {
             return false;
         }
