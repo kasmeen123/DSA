@@ -52,42 +52,15 @@ class GFG {
 class Solution {
     public int findPair(int n, int x, int[] arr) {
         // code here
-        //BRUTE FORCE
-        // for(int i = 0; i < n; i++){
-        //     for(int j = i+1; j < n; j++){
-        //         if(Math.abs(arr[i]-arr[j]) == x ) return 1;
-        //     }
-        // }
-        // return -1;
+         HashSet<Integer> hashSet = new HashSet<>();
         
-        //USNG HASHSET
-        // HashSet <Integer> set = new HashSet <> ();
-        // for(int i = 0; i < n; i++){
-        //     set.add(arr[i]);
-        // }
-        // if(x == 0 && set.size() == n) return -1;
-        // for(int i = 0; i < n; i++){
-            
-        //     if(set.contains(x+arr[i])) return 1;
-        // }
-        // return -1;
-        
-        //
-        Arrays.sort(arr);
-        for(int i = 0; i < n; i++){
-            if(binarySearch(arr, i+1, n-1, x+arr[i]) ||
-            binarySearch(arr, i+1, n-1, -x+arr[i])) return 1;
+        for (int num : arr) {
+            if (hashSet.contains(num + x) || hashSet.contains(num - x)) {
+                return 1;
+            }
+            hashSet.add(num);
         }
+        
         return -1;
     }
-    
-    public boolean binarySearch(int [] arr, int low, int high, int target){
-        while(low <= high){
-            int mid = (low+high)/2;
-            if(arr[mid] == target) return true;
-            else if(arr[mid] > target) high = mid-1;
-            else low = mid+1;
-        }
-        return false;
-    } 
 }
