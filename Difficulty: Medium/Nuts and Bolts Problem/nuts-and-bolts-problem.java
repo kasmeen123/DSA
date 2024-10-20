@@ -43,6 +43,25 @@ public class Main {
 class Solution {
     void matchPairs(int n, char nuts[], char bolts[]) {
         // code here
+        
+        int [] freq = new int [256];
+        
+        for(int c : nuts) {
+            freq[(int)c]++;
+        }
+        
+        int j = 0;
+        for(int i = 0; i < 256; i++) {
+            if(freq[i] > 0) {
+                nuts[j] = (char)i;
+                bolts[j] = (char)i;
+                j++;
+            }
+        }
+          // Arrays.sort(nuts);
+        // Arrays.sort(bolts);
+        
+        
         // char [] arr = {'!', '#', '$', '%', '&', '*', '?', '@', '^'};
         
         // int t = 0;
@@ -55,10 +74,6 @@ class Solution {
         //       }
         //   }
         // }
-         Character[] order = {'!', '#', '$', '%', '&', '*', '?', '@', '^'};
-
-        // Sort both nuts and bolts arrays according to the predefined order
-        Arrays.sort(nuts);
-        Arrays.sort(bolts);
+   
     }
 }
