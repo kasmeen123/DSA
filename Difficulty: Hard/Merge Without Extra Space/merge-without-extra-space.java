@@ -47,24 +47,56 @@ class Solution {
         int n = a.length;
         int m = b.length;
         
+        //using extra space O(n+m) and time complexity O(nlog(n+m)
+        
+        // int [] arr = new int [n+m];
+        
+        // for(int i = 0; i < n; i++) {
+        //     arr[i] = a[i];
+        // }
+        
+        // for(int i = 0; i < m; i++) {
+        //     arr[i+n] = b[i];
+        // }
+    
+        // Arrays.sort(arr);
+        
+        // for(int i = 0; i < n; i++) {
+        //     a[i] = arr[i];
+        // }
+    
+        // for(int i = 0; i < m; i++) {
+        //     b[i] = arr[i+n];
+        // }
+        
+        //using extra space O(n+m) and time complexity O(n+m)
+        
+        int left = 0;
+        int right = 0;
+        int index = 0;
         int [] arr = new int [n+m];
+        while(left < n && right < m) {
+            if(a[left] <= b[right]) {
+                arr[index] = a[left];
+                left++;
+                index++;
+            }
+            else{
+                arr[index] = b[right];
+                right++;
+                index++;
+            }
+        }
+        while(left < n) arr[index++] = a[left++];
+        while (right < m) arr[index++] = b[right++];
         
-        for(int i = 0; i < n; i++) {
-            arr[i] = a[i];
-        }
-        
-        for(int i = 0; i < m; i++) {
-            arr[i+n] = b[i];
-        }
-    
-        Arrays.sort(arr);
-        
-        for(int i = 0; i < n; i++) {
-            a[i] = arr[i];
-        }
-    
-        for(int i = 0; i < m; i++) {
-            b[i] = arr[i+n];
-        }
+        for(int i = 0; i < n+m; i++){
+            if(i < n) {
+                a[i] = arr[i];
+            }
+            else{
+                 b[i-n] = arr[i];
+            }
+        } 
     }
 }
