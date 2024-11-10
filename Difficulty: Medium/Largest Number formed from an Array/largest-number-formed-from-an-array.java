@@ -1,10 +1,8 @@
 //{ Driver Code Starts
-//Initial Template for Java
+// Initial Template for Java
 
-
-
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 public class Main {
 
@@ -13,37 +11,30 @@ public class Main {
         int tc = Integer.parseInt(br.readLine().trim());
         while (tc-- > 0) {
             String[] inputLine;
-            int n = Integer.parseInt(br.readLine().trim());
             String[] arr = br.readLine().trim().split(" ");
 
-            String ans = new Solution().printLargest(n, arr);
+            String ans = new Solution().printLargest(arr);
             System.out.println(ans);
+
+            System.out.println("~");
         }
     }
 }
 // } Driver Code Ends
 
 
-//User function Template for Java
+// User function Template for Java
 
 class Solution {
-    String printLargest(int n, String[] arr) {
+    String printLargest(String[] arr) {
         // code here
-      Arrays.sort(arr, new Comparator<String> () {
-          public int compare(String a, String b) {
-              String order1 = a + b;
-              String order2 = b + a;
-              return order2.compareTo(order1);
-          }
-      });
-      
-      StringBuilder sb = new StringBuilder ();
-      for(int i = 0; i < n; i++){
-          sb.append(arr[i]);
-      }
-      return sb.toString();
+        Arrays.sort(arr, (a, b) -> (b + a).compareTo(a + b));
+        StringBuilder result = new StringBuilder();
+        for (String num : arr) {
+            result.append(num);
+        }
+
+        return result.toString();
+        
     }
 }
-
-
-
