@@ -127,21 +127,18 @@ class Solution {
         // Perform BFS
         while (!q.isEmpty()) {
             Pair current = q.poll(); // Dequeue
-            int row = current.row;
-            int col = current.col;
-            int steps = current.steps;
 
-            ans[row][col] = steps; // Update distance in ans array
+            ans[current.row][current.col] = current.steps; // Update distance in ans array
 
             // Explore neighbors
             for (int i = 0; i < 4; i++) {
-                int nRow = row + delRow[i];
-                int nCol = col + delCol[i];
+                int nRow = current.row + delRow[i];
+                int nCol = current.col + delCol[i];
 
                 // Check bounds and if the cell is not visited
                 if (nRow >= 0 && nRow < n && nCol >= 0 && nCol < m && !vis[nRow][nCol]) {
                     vis[nRow][nCol] = true; // Mark as visited
-                    q.add(new Pair(nRow, nCol, steps + 1)); // Enqueue with incremented distance
+                    q.add(new Pair(nRow, nCol, current.steps + 1)); // Enqueue with incremented distance
                 }
             }
         }
