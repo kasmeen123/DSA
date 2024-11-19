@@ -1,50 +1,50 @@
 //{ Driver Code Starts
-import java.util.*;
 import java.io.*;
 import java.lang.*;
+import java.util.*;
 
 class Main {
     public static void main(String[] args) throws IOException {
-        BufferedReader read =
-            new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         int t = Integer.parseInt(read.readLine());
 
         while (t-- > 0) {
-            ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+            ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
             String st[] = read.readLine().trim().split("\\s+");
-            int edg = Integer.parseInt(st[0]);
-            int nov = Integer.parseInt(st[1]);
+            int edges = Integer.parseInt(st[0]);
+            int vertices = Integer.parseInt(st[1]);
 
-            for (int i = 0; i < nov; i++)
-                list.add(i, new ArrayList<Integer>());
+            for (int i = 0; i < vertices; i++) adj.add(i, new ArrayList<Integer>());
 
             int p = 0;
-            for (int i = 1; i <= edg; i++) {
+            for (int i = 1; i <= edges; i++) {
                 String s[] = read.readLine().trim().split("\\s+");
                 int u = Integer.parseInt(s[0]);
                 int v = Integer.parseInt(s[1]);
-                list.get(u).add(v);
+                adj.get(u).add(v);
             }
 
-            int[] res = new Solution().topoSort(nov, list);
+            ArrayList<Integer> res = new Solution().topologicalSort(adj);
 
-            if (check(list, nov, res) == true)
+            if (check(adj, vertices, res) == true)
                 System.out.println("1");
             else
                 System.out.println("0");
+            System.out.println("~");
         }
     }
-    static boolean check(ArrayList<ArrayList<Integer>> list, int V, int[] res) {
-        
-        if(V!=res.length)
-        return false;
-        
+
+    static boolean check(ArrayList<ArrayList<Integer>> adj, int V,
+                         ArrayList<Integer> res) {
+
+        if (V != res.size()) return false;
+
         int[] map = new int[V];
         for (int i = 0; i < V; i++) {
-            map[res[i]] = i;
+            map[res.get(i)] = i;
         }
         for (int i = 0; i < V; i++) {
-            for (int v : list.get(i)) {
+            for (int v : adj.get(i)) {
                 if (map[i] > map[v]) return false;
             }
         }
@@ -55,78 +55,39 @@ class Main {
 // } Driver Code Ends
 
 
-/*Complete the function below*/
-
-
-// class Solution
-// {
-//     //Function to return list containing vertices in Topological order. 
-//     static int[] topoSort(int V, ArrayList<ArrayList<Integer>> adj) 
-//     {
-//         // add your code here
-//         Stack <Integer> st = new Stack <> ();
-//         boolean [] vis = new boolean [V];
-//         int [] ans = new int [V];
-        
-//         for(int i = 0; i < V; i++) {
-//             if(!vis[i]){
-//                 dfs(vis, i, adj, st);
-//             }
-//         }
-        
-//         int i = 0;
-//         while(!st.isEmpty() && i < V){
-//             ans[i] = st.pop();
-//             i++;
-//         }
-//         return ans;
-//     }
-    
-//     static void dfs(boolean [] vis, int node, ArrayList<ArrayList<Integer>> adj,
-//                     Stack <Integer> st){
-//                      vis[node] = true;
-                     
-                     
-//                      for(int it : adj.get(node)){
-//                          if(!vis[it]){
-//                              dfs(vis, node, adj, st);
-//                          }
-//                      }
-//                      st.push(node);
-//                     }
-// }
-
-
-
 class Solution {
-    // Function to return list containing vertices in Topological order. 
-    static int[] topoSort(int V, ArrayList<ArrayList<Integer>> adj) {
-        Stack<Integer> st = new Stack<>();
-        boolean[] vis = new boolean[V];
-        int[] ans = new int[V];
-
-        for (int i = 0; i < V; i++) {
-            if (!vis[i]) {
-                dfs(vis, i, adj, st);
+    // Function to return list containing vertices in Topological order.
+    static ArrayList<Integer> topologicalSort(ArrayList<ArrayList<Integer>> adj) {
+        // Your code here
+    
+        int V = adj.size();
+        int [] indeg = new int [V];
+        for(int i = 0; i < V; i++) {
+            for(int it : adj.get(i)) {
+                indeg[it]++;
             }
         }
-
+        Queue <Integer> q = new LinkedList <> ();
+        for(int i = 0; i < V; i++) {
+            if(indeg[i] == 0) {
+                q.add(i);
+            }
+        }
+        ArrayList <Integer> ans = new ArrayList <> ();
         int i = 0;
-        while (!st.isEmpty() && i < V) {
-            ans[i] = st.pop(); // use st.pop() instead of st.peek()
+        while (!q.isEmpty()) {
+            int curr = q.poll();
+            ans.add(curr);
             i++;
-        }
-        return ans;
-    }
-
-    static void dfs(boolean[] vis, int node, ArrayList<ArrayList<Integer>> adj, Stack<Integer> st) {
-        vis[node] = true;
-
-        for (int it : adj.get(node)) {
-            if (!vis[it]) {
-                dfs(vis, it, adj, st);
+            
+            for(int it : adj.get(curr)) {
+                indeg[it]--;
+                if(indeg[it] == 0) {
+                    q.add(it);
+                }
             }
         }
-        st.push(node); // push the node after visiting all its adjacent nodes
-    }
+         return ans;
+         
+     }
 }
