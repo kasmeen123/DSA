@@ -1,94 +1,93 @@
 //{ Driver Code Starts
-//Initial Template for Java
-
-
-//Initial Template for Java
-
-//Initial Template for Java
-
-/*package whatever //do not write package name here */
+// Initial Template for Java
 
 import java.io.*;
+import java.lang.*;
 import java.util.*;
 
 
 // } Driver Code Ends
-//User function Template for Java
+// User function Template for Java
 
-            
+class Solution {
 
-class Solution{
-    
-  
-    int Countpair(int a[], int n, int sum)
-    {
+    int countPairs(int arr[], int target) {
         // Complete the function
-        int i = 0;
-        int j = n-1;
+        
+        // brute force
+        // int n = arr.length;
+        // int cnt = 0;
+        // for(int i = 0; i < n-1; i++) {
+        //     for(int j = i+1; j < n; j++) {
+        //         if(arr[i] + arr[j] == target) {
+        //             cnt++;
+        //         }
+        //     }
+        // }
+        // return cnt;
+        
+        
+        int l = 0;
+        int r = arr.length -1;
         int cnt = 0;
-        while(i < j){
-            if(a[i]+a[j] == sum){
-                cnt++;
-                i++;
-                j--;
+        
+        while(l < r) {
+            int sum = arr[l] + arr[r];
+            
+            if(sum == target) {
+                //all elements are same
+                if(arr[l] == arr[r]) {
+                    int len = r - l + 1;
+                    cnt += len * (len-1) / 2;
+                    break;
+                }
+                //left duplicates
+                int leftCnt = 1;
+                while (l < r && arr[l] == arr[l+1]){
+                    l++;
+                    leftCnt++;
+                }
+                //right duplicates
+                int rightCnt = 1;
+                while (r > l && arr[r] == arr[r-1]){
+                    r--;
+                    rightCnt++;
+                }
+                cnt += leftCnt * rightCnt;
+                l++;
+                r--;
             }
-            else if(a[i]+a[j] < sum){
-                i++;
+            else if (sum < target) {
+                l++;
             }
-            else{
-                j--;
+            else {
+                r--;
             }
         }
-        if(cnt > 0){
         return cnt;
-        }
-        else{
-            return -1;
-        }
     }
 }
 
 
 //{ Driver Code Starts.
+class GFG {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine().trim()); // Inputting the testcases
+        while (t-- > 0) {
+            String[] inputLine = br.readLine().trim().split(" ");
+            int[] arr = new int[inputLine.length];
+            for (int i = 0; i < inputLine.length; i++) {
+                arr[i] = Integer.parseInt(inputLine[i]);
+            }
+            inputLine = br.readLine().trim().split(" ");
+            int target = Integer.parseInt(inputLine[0]);
 
-// Driver class
-class Array {
-    
-    // Driver code
-	public static void main (String[] args) throws IOException{
-		// Taking input using buffered reader
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		
-		int testcases = Integer.parseInt(br.readLine());
-		
-		// looping through all testcases
-		while(testcases-- > 0){
-		    
-		    String line1 = br.readLine();
-		    String[] element = line1.trim().split("\\s+");
-		    int sizeOfArray = Integer.parseInt(element[0]);
-		    
-		    int arr [] = new int[sizeOfArray];
-		    
-		    String line = br.readLine();
-		    String[] elements = line.trim().split("\\s+");
-		    
-		    for(int i = 0;i<sizeOfArray;i++){
-		        arr[i] = Integer.parseInt(elements[i]);
-		    }
-		    int K = Integer.parseInt(br.readLine());
-		    
-		    Solution obj = new Solution();
-		   
-		    int res = obj.Countpair(arr, sizeOfArray, K);
-		    
-		    System.out.println(res);
-		    
-		    
-		}
-	}
+            Solution obj = new Solution();
+            int res = obj.countPairs(arr, target);
+            System.out.println(res);
+            System.out.println("~");
+        }
+    }
 }
-
-
-
 // } Driver Code Ends
